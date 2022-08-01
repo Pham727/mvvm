@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SqLiteXamarinCrud.ViewModels"
+             x:Class="SqLiteXamarinCrud.Views.AddProductPage">
+    <ContentPage.BindingContext>
+        <local:AddProductViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Padding="15" Spacing="5">
+            <Label Text="ID" FontSize="Medium" IsEnabled="False"/>
+            <Entry Text="{Binding ProductInfo.ProductId, Mode=TwoWay}" FontSize="Medium" IsEnabled="False"/>
+            <Label Text="Name" FontSize="Medium"/>
+            <Entry Text="{Binding ProductInfo.ProductName, Mode=TwoWay}" FontSize="Medium"/>
+            <Label Text="Description" FontSize="Medium" />
+            <Entry Text="{Binding ProductInfo.Description, Mode=TwoWay}" FontSize="Medium" Margin="0" />
+            <Label Text="ImageUrl" FontSize="Medium" />
+            <Entry Text="{Binding ProductInfo.ImageUrl, Mode=TwoWay}" FontSize="Medium" Margin="0"/>
+            <StackLayout>
+                <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="Cancle" Command="{Binding CancleCommand}" HorizontalOptions="FillAndExpand"></Button>
+            </StackLayout>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

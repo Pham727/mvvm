@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SqLiteXamarinCrud.ViewModels"
+              xmlns:model="clr-namespace:SqLiteXamarinCrud.Models"
+             x:Class="SqLiteXamarinCrud.Views.ProductPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddProductCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <RefreshView x:DataType="local:ProductViewModel" Command="{Binding LoadProductCommand}" 
+                         IsRefreshing="{ Binding IsBusy,Mode=OneWay}">
+                <CollectionView ItemsSource="{Binding ProductInfos}" SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout x:DataType="model:ProductInfo">
+                                <SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItem Text="Delete" BackgroundColor="Red" 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ProductViewModel}},
+                                            Path=ProdutTappedDeleted}" CommandParameter="{Binding .}"/>
+                                        <SwipeItem IsDestructive="True" Text="Close" BackgroundColor="Green"/>
+                                    </SwipeView.RightItems>
+                                    <Grid Padding="5">
+                                        <Frame CornerRadius="10" HasShadow="True">
+                                            <StackLayout Orientation="Horizontal">
+                                                <Image Grid.RowSpan="2" Source="{Binding ImageUrl}" Aspect="AspectFill" HeightRequest="60" WidthRequest="60"></Image>
+                                                <StackLayout>
+                                                    <Label Grid.Column="1" Text="{Binding ProductName}" FontAttributes="Bold"/>
+                                                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding Description}" VerticalOptions="End"/>
+                                                </StackLayout>
+                                                <StackLayout VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+                                                    <Image Source="icon_about.png" Grid.Column="3" WidthRequest="30" HeightRequest="30" VerticalOptions="End">
+                                                        <Image.GestureRecognizers>
+                                                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type local:ProductViewModel}},
+                                                        Path=ProdutTappedEdit}" CommandParameter="{Binding .}"/>
+                                                        </Image.GestureRecognizers>
+                                                    </Image>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </Frame>
+                                    </Grid>
+                                </SwipeView>
+                              
+                            </StackLayout>
+                        
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
